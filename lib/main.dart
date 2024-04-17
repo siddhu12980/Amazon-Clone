@@ -1,5 +1,6 @@
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/feature/account/screen/account_screen.dart';
+import 'package:ec/feature/admin/screen/admin_screen.dart';
 import 'package:ec/feature/auth/screen/auth_Screen.dart';
 import 'package:ec/feature/auth/services/auth_services.dart';
 import 'package:ec/feature/auth/widgets/bottom_bar.dart';
@@ -48,7 +49,9 @@ class _MyAppState extends State<MyApp> {
               elevation: 0, iconTheme: IconThemeData(color: Colors.black12))),
       onGenerateRoute: (settings) => generateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const BottomBar()
+          ? Provider.of<UserProvider>(context).user.role == "user"
+              ? const BottomBar()
+              : const AdminScreen()
           : const AuthScreen(),
     );
   }

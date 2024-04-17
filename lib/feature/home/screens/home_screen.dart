@@ -1,5 +1,8 @@
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/feature/home/widgets/address_box.dart';
+import 'package:ec/feature/home/widgets/catories.dart';
+import 'package:ec/feature/home/widgets/crouser_image.dart';
+import 'package:ec/feature/home/widgets/deal_of_day.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -70,13 +73,24 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: Center(
-          child: Column(
-        children: const [
-          AddressBox(),
-          SizedBox(
-            height: 10,
-          )
-        ],
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            AddressBox(),
+            SizedBox(
+              height: 10,
+            ),
+            HomeCatogries(),
+            SizedBox(
+              height: 10,
+            ),
+            CrouselImage(),
+            SizedBox(
+              height: 10,
+            ),
+            DealOfDayWidget()
+          ],
+        ),
       )),
     );
   }
