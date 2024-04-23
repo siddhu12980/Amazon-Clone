@@ -1,3 +1,4 @@
+import 'package:ec/feature/admin/screen/add_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminProductScreen extends StatelessWidget {
@@ -11,7 +12,10 @@ class AdminProductScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("pressed");
+          Navigator.pushNamed(
+            context,
+            AddProductScreen.routeName,
+          );
         },
         child: Icon(Icons.add),
         tooltip: "Add a Product",

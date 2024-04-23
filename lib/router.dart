@@ -1,3 +1,4 @@
+import 'package:ec/feature/admin/screen/add_product_screen.dart';
 import 'package:ec/feature/auth/screen/auth_Screen.dart';
 import 'package:ec/feature/auth/widgets/bottom_bar.dart';
 import 'package:ec/feature/home/screens/home_screen.dart';
@@ -25,6 +26,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       {
         return MaterialPageRoute(
           builder: (_) => const BottomBar(),
+        );
+      }
+    case AddProductScreen.routeName:
+      {
+        return MaterialPageRoute(
+          builder: (_) => const AddProductScreen(),
         );
       }
 

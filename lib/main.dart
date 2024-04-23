@@ -48,11 +48,12 @@ class _MyAppState extends State<MyApp> {
           appBarTheme: const AppBarTheme(
               elevation: 0, iconTheme: IconThemeData(color: Colors.black12))),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? Provider.of<UserProvider>(context).user.role == "user"
-              ? const BottomBar()
-              : const AdminScreen()
-          : const AuthScreen(),
+      // home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+      //     ? Provider.of<UserProvider>(context).user.role == "user"
+      //         ? const BottomBar()
+      //         : const AdminScreen()
+      //     : const AuthScreen(),
+      home: const AdminScreen(),
     );
   }
 }
