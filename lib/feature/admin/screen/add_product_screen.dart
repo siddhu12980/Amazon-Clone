@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/constants/utils.dart';
+import 'package:ec/feature/admin/services/admin_services.dart';
 import 'package:ec/feature/auth/widgets/common/custom_button.dart';
 import 'package:ec/feature/auth/widgets/common/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+  AdminServices services = AdminServices();
+
+  final _addProductFormkey = GlobalKey<FormState>();
+
   List<File> images = [];
 
   final TextEditingController _prod_name = TextEditingController();
@@ -49,6 +54,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
       'Fashion'
     ];
 
+    void sellProducts() {
+      if (_addProductFormkey.currentState!.validate() && images.isNotEmpty) {
+        services.sellProduct(
+            context: context,
+            name: _prod_name.text,
+            description: _prod_desc.text,
+            price: double.parse(_prod_price.text),
+            quantity: double.parse(_prod_price.text),
+            catogery: catogery,
+            images: images);
+      }
+    }
+
     void selectImages() async {
       var res = await pickImages();
       setState(() {
@@ -72,6 +90,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
           child: Form(
+        key: _addProductFormkey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -152,7 +171,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               SizedBox(
                 height: 10,
               ),
-              CustomButton(text: "Sell", onTap: () {})
+              CustomButton(text: "Sell", onTap: sellProducts)
             ],
           ),
         ),

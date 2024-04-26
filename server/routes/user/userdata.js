@@ -1,6 +1,4 @@
 const expxress = require("express");
-const jwt = require("jsonwebtoken");
-const { User } = require("../../models/user");
 require("mongoose");
 
 const userDataRouter = expxress.Router();

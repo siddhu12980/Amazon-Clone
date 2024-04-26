@@ -9,6 +9,8 @@ void httpErrorHandle({
   required BuildContext context,
   required VoidCallback onSucess,
 }) {
+  print(response.body);
+
   switch (response.statusCode) {
     case 200:
       onSucess();

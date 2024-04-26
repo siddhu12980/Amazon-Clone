@@ -5,7 +5,6 @@ import 'package:ec/constants/error_handelling.dart';
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/constants/utils.dart';
 import 'package:ec/feature/auth/widgets/bottom_bar.dart';
-import 'package:ec/feature/home/screens/home_screen.dart';
 import 'package:ec/models/user.dart';
 import 'package:ec/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +68,7 @@ class AuthService {
         Uri.parse("$uri/user/api/signin"),
         body: user.toJson(),
         headers: <String, String>{
+          "Access-Control-Allow-Origin": "*",
           'Content-type': 'application/json; charset=UTF-8'
         },
       );
@@ -113,6 +113,7 @@ class AuthService {
       http.Response tokenres = await http.post(
         Uri.parse("$uri/user/api/verify"),
         headers: <String, String>{
+          "Access-Control-Allow-Origin": "*",
           'Content-type': 'application/json; charset=UTF-8',
           'auth-token': token!
         },
@@ -124,6 +125,7 @@ class AuthService {
         http.Response userres = await http.get(
           Uri.parse("$uri/user/api/data"),
           headers: <String, String>{
+            "Access-Control-Allow-Origin": "*",
             'Content-type': 'application/json; charset=UTF-8',
             'auth-token': token
           },
@@ -134,6 +136,8 @@ class AuthService {
 
         //get user data
       }
-    } catch (e) {}
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
   }
 }

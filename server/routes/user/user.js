@@ -2,12 +2,15 @@ const expxress = require("express");
 const User = require("../../models/user");
 const bycrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const jwt_password = "Thisisjwtpassword";
 require("mongoose");
 
 const userAuthRouter = expxress.Router();
 
 userAuthRouter.post("/api/signup", async (req, res) => {
+  console.log(req.body);
+
   const { name, email, password } = req.body;
   hashedPassword = await bycrypt.hash(password, 10);
   try {
@@ -29,6 +32,7 @@ userAuthRouter.post("/api/signup", async (req, res) => {
 });
 
 userAuthRouter.post("/api/signin", async (req, res) => {
+  console.log("inside Signin");
   const email = req.body.email;
   const password = req.body.password;
 
@@ -55,6 +59,8 @@ userAuthRouter.post("/api/signin", async (req, res) => {
       );
 
       res.status(200).json({ token, ...usr._doc });
+
+      console.log(token, ...usr._doc);
     }
   } catch (e) {}
 });
@@ -78,6 +84,10 @@ userAuthRouter.post("/api/verify", (req, res) => {
       msg: e.message,
     });
   }
+});
+
+userAuthRouter.get("/", (req, res) => {
+  res.send("Connected");
 });
 
 module.exports = {
