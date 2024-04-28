@@ -8,6 +8,7 @@ import 'package:ec/constants/utils.dart';
 import 'package:ec/models/product_model.dart';
 import 'package:ec/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ class AdminServices {
     required double quantity,
     required String catogery,
     required List<File> images,
+    required VoidCallback onsucess,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
@@ -58,6 +60,8 @@ class AdminServices {
           context: context,
           onSucess: () async {
             ShowSnackbar(context, "Product Added Sucessfully");
+            onsucess();
+
             Navigator.pop(context);
           });
     } catch (e) {
@@ -69,7 +73,7 @@ class AdminServices {
     required BuildContext context,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Product> product_list = [];
+    List<Product> productList = [];
     try {
       http.Response res = await http.get(
         Uri.parse("$uri/admin/product"),
@@ -80,14 +84,19 @@ class AdminServices {
         },
       );
 
+      print("=================");
+      print(res.body);
+      print("=================");
+
       httpErrorHandle(
           response: res,
           context: context,
-          onSucess: () async {
-            for (int i = 0; i < jsonDecode(res.body)["product"].length; i++) {
-              product_list.add(
+          onSucess: () {
+            var data = res.body;
+            for (int i = 0; i < jsonDecode(data)["product"].length; i++) {
+              productList.add(
                 Product.fromJson(
-                  jsonEncode(jsonDecode(res.body)["product"][i]),
+                  jsonEncode(jsonDecode(data)["product"][i]),
                 ),
               );
             }
@@ -95,12 +104,33 @@ class AdminServices {
     } catch (e) {
       ShowSnackbar(context, e.toString());
     }
-    print(
-        "=================================================================================");
-    print(product_list);
 
-    print(
-        "=================================================================================");
-    return product_list;
+    return productList;
+  }
+
+  Future<void> deleteProduct(
+      {required BuildContext context, required String id}) async {
+    try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+      http.Response res = await http.delete(
+        Uri.parse("$uri/admin/product/$id"),
+        headers: <String, String>{
+          "Access-Control-Allow-Origin": "*",
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSucess: () {
+            print(res.body);
+            ShowSnackbar(context, "Product Deleted");
+          });
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
   }
 }

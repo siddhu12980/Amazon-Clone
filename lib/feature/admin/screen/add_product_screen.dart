@@ -1,20 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/constants/utils.dart';
 import 'package:ec/feature/admin/services/admin_services.dart';
 import 'package:ec/feature/auth/widgets/common/custom_button.dart';
 import 'package:ec/feature/auth/widgets/common/custom_textfield.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 class AddProductScreen extends StatefulWidget {
   static const String routeName = '/add-prod-screen';
 
-  const AddProductScreen({super.key});
+  const AddProductScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
@@ -63,7 +67,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
             price: double.parse(_prod_price.text),
             quantity: double.parse(_prod_price.text),
             catogery: catogery,
-            images: images);
+            images: images,
+            onsucess: () {});
       }
     }
 

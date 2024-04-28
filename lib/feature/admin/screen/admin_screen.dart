@@ -20,6 +20,11 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     List<Widget> pages = [
       const AdminProductScreen(),
+      // const Scaffold(
+      //   body: Center(
+      //     child: Text("1"),
+      //   ),
+      // ),
       const Scaffold(
         body: Center(
           child: Text("2"),

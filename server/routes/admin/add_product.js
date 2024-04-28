@@ -30,11 +30,46 @@ adminAddProduct.post("/product", async (req, res) => {
 });
 
 adminAddProduct.get("/product", async (req, res) => {
-  let product = await Product.find({});
+  try {
+    let product = await Product.find(
+      {},
+      {
+        __v: 0,
+      }
+    );
+    console.log(product);
 
-  res.status(200).json({
-    product,
-  });
+    res.status(200).json({
+      product,
+    });
+  } catch (e) {
+    res.json({
+      msg: e.message,
+    });
+  }
+});
+
+adminAddProduct.delete("/product/:productid", async (req, res) => {
+  try {
+    const id = req.params.productid;
+
+    let product = await Product.findOneAndDelete({ _id: id });
+    console.log(product);
+    if (product) {
+      res.status(200).json({
+        msg: "Deleted",
+        product: product,
+      });
+    } else {
+      res.status(400).json({
+        msg: "Product ID now found",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      msg: e.message,
+    });
+  }
 });
 
 module.exports = {

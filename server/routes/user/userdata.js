@@ -1,4 +1,5 @@
 const expxress = require("express");
+const User = require("../../models/user");
 require("mongoose");
 
 const userDataRouter = expxress.Router();
