@@ -3,6 +3,7 @@ import 'package:ec/feature/home/widgets/address_box.dart';
 import 'package:ec/feature/home/widgets/catories.dart';
 import 'package:ec/feature/home/widgets/crouser_image.dart';
 import 'package:ec/feature/home/widgets/deal_of_day.dart';
+import 'package:ec/feature/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void submitthis(String val) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: val);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   elevation: 1,
                   borderRadius: BorderRadius.circular(7),
                   child: TextFormField(
+                    onFieldSubmitted: submitthis,
                     decoration: InputDecoration(
                         prefixIcon: InkWell(
                           onTap: () {},
