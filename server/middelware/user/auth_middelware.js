@@ -6,7 +6,7 @@ require("mongoose");
 
 async function userMiddelWare(req, res, next) {
   try {
-    const token = req.header("auth-token");
+    const token = req.header("x-auth-token");
 
     if (!token)
       return res.status(401).json({
@@ -31,7 +31,11 @@ async function userMiddelWare(req, res, next) {
     req.token = token;
 
     next();
-  } catch (e) {}
+  } catch (e) {
+    res.json({
+      msg: e.message,
+    });
+  }
 }
 
 module.exports = {

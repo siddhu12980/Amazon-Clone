@@ -17,6 +17,7 @@ class StarWidgetState extends State<StarWidget> {
       direction: Axis.horizontal,
       itemCount: 5,
       itemSize: 15,
+      rating: widget.rating,
       itemBuilder: (context, _) => const Icon(
         Icons.star,
         color: Color(0xFFFF9900),

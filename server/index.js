@@ -2,7 +2,7 @@ require("../server/db/db");
 const express = require("express");
 const app = express();
 
-const PORT = 3000;
+const PORT = 3450;
 
 app.use(express.json());
 
@@ -15,6 +15,7 @@ const { userDataRouter } = require("./routes/user/userdata");
 const { userMiddelWare } = require("./middelware/user/auth_middelware");
 const { adminMiddelWare } = require("./middelware/admin/admin_middelware");
 const { productRoute } = require("./routes/product/product");
+const { rateProductRoute } = require("./routes/product/rate");
 
 // app.use(
 //   cors({
@@ -22,12 +23,14 @@ const { productRoute } = require("./routes/product/product");
 //   })
 // );
 
-// app.use(cors);
+// app.use(cors);r
 app.use("/admin", adminAuthRouter);
 app.use("/admin", adminAddProduct);
 app.use("/user", userAuthRouter);
 app.use("/user", userMiddelWare, userDataRouter);
 app.use("/api", productRoute);
+
+app.use("/rating", userMiddelWare, rateProductRoute);
 
 app.use("*", (req, res) => {
   res.status(500).json({

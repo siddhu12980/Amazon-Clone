@@ -32,7 +32,6 @@ userAuthRouter.post("/api/signup", async (req, res) => {
 });
 
 userAuthRouter.post("/api/signin", async (req, res) => {
-  console.log("inside Signin");
   const email = req.body.email;
   const password = req.body.password;
 
@@ -57,6 +56,7 @@ userAuthRouter.post("/api/signin", async (req, res) => {
         { email: email, name: usr.name, role: usr.role, id: usr._id },
         jwt_password
       );
+      console.log(token);
 
       res.status(200).json({ token, ...usr._doc });
 

@@ -4,6 +4,8 @@ import 'package:ec/feature/auth/widgets/bottom_bar.dart';
 import 'package:ec/feature/home/screens/catogery_screen.dart';
 import 'package:ec/feature/home/screens/home_screen.dart';
 import 'package:ec/feature/search/screen/search_screen.dart';
+import 'package:ec/models/product_model.dart';
+import 'package:ec/product_details/screen/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -55,6 +57,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           settings: routeSettings,
           builder: (_) => SearchScreen(
             searchQuery: searchquery,
+          ),
+        );
+      }
+    case ProductDetailScreen.routeName:
+      {
+        var product = routeSettings.arguments as Product;
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => ProductDetailScreen(
+            product: product,
           ),
         );
       }

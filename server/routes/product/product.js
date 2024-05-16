@@ -6,8 +6,6 @@ const Product = require("../../models/product");
 const productRoute = expxress.Router();
 
 productRoute.get("/", async (req, res) => {
-  const cato = req.query.catogery;
-
   try {
     let product = await Product.find(
       {},

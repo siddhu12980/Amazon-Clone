@@ -2,6 +2,7 @@ import 'package:ec/constants/global_variable.dart';
 import 'package:ec/feature/account/widgets/single_product_widget.dart';
 import 'package:ec/feature/home/services/home_services.dart';
 import 'package:ec/models/product_model.dart';
+import 'package:ec/product_details/screen/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class CatogeryScreen extends StatefulWidget {
@@ -74,35 +75,42 @@ class _CatogeryScreenState extends State<CatogeryScreen> {
                               mainAxisSpacing: 10),
                       itemBuilder: (context, index) {
                         final productData = prodlist[index];
-                        return Column(children: [
-                          SizedBox(
-                            height: 145,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black12, width: 0.5),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Image.network(productData.images[0]),
+                        return GestureDetector(
+                          onTap: () => {
+                            Navigator.pushNamed(
+                                context, ProductDetailScreen.routeName,
+                                arguments: productData)
+                          },
+                          child: Column(children: [
+                            SizedBox(
+                              height: 145,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black12, width: 0.5),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Image.network(productData.images[0]),
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      productData.name,
-                                      overflow: TextOverflow.ellipsis,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        productData.name,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                  ),
-                                ]),
-                          ),
-                        ]);
+                                  ]),
+                            ),
+                          ]),
+                        );
                       },
                     ),
                   )

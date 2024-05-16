@@ -2,6 +2,7 @@ import 'package:ec/constants/global_variable.dart';
 import 'package:ec/feature/search/screen/services/search_services.dart';
 import 'package:ec/feature/search/screen/widgets/search_products.dart';
 import 'package:ec/models/product_model.dart';
+import 'package:ec/product_details/screen/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -55,7 +56,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 itemCount: productList!.length,
                 itemBuilder: (BuildContext context, int index) {
                   final productData = productList![index];
-                  return SearchProduct(product: productData);
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, ProductDetailScreen.routeName,
+                            arguments: productData);
+                      },
+                      child: SearchProduct(product: productData));
                 },
               ),
             ));
