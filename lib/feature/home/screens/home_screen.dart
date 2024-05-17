@@ -1,10 +1,12 @@
 import 'package:ec/constants/global_variable.dart';
+
 import 'package:ec/feature/home/widgets/address_box.dart';
 import 'package:ec/feature/home/widgets/catories.dart';
 import 'package:ec/feature/home/widgets/crouser_image.dart';
 import 'package:ec/feature/home/widgets/deal_of_day.dart';
 import 'package:ec/feature/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";
@@ -94,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            DealOfDayWidget()
+            DealOfDayWidget(),
           ],
         ),
       )),

@@ -26,7 +26,8 @@ class AuthService {
           password: password,
           address: '',
           role: '',
-          token: '');
+          token: '',
+          cart: []);
 
       http.Response res = await http.post(
         Uri.parse("$uri/user/api/signup"),
@@ -62,7 +63,8 @@ class AuthService {
           password: password,
           address: '',
           role: '',
-          token: '');
+          token: '',
+          cart: []);
 
       http.Response res = await http.post(
         Uri.parse("$uri/user/api/signin"),

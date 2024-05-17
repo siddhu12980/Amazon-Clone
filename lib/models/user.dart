@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class User {
   final String id;
   final String name;
@@ -9,8 +11,9 @@ class User {
   final String address;
   final String role;
   final String token;
+  final List<dynamic> cart;
 
-  User({
+  const User({
     required this.id,
     required this.name,
     required this.email,
@@ -18,6 +21,7 @@ class User {
     required this.address,
     required this.role,
     required this.token,
+    required this.cart,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,18 +33,22 @@ class User {
       'address': address,
       'role': role,
       'token': token,
+      'cart': cart,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['_id'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      password: map['password'] as String,
-      address: map['address'] as String,
-      role: map['role'] as String,
-      token: map['token'] as String,
+      id: (map["id"] ?? '') as String,
+      name: (map["name"] ?? '') as String,
+      email: (map["email"] ?? '') as String,
+      password: (map["password"] ?? '') as String,
+      address: (map["address"] ?? '') as String,
+      role: (map["role"] ?? '') as String,
+      token: (map["token"] ?? '') as String,
+      cart: List<dynamic>.from(
+        ((map['cart'] ?? const <dynamic>[]) as List<dynamic>),
+      ),
     );
   }
 
@@ -51,7 +59,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, password: $password, address: $address, role: $role, token: $token)';
+    return 'User(id: $id, name: $name, email: $email, password: $password, address: $address, role: $role, token: $token, cart: $cart)';
   }
 
   User copyWith({
@@ -62,6 +70,7 @@ class User {
     String? address,
     String? role,
     String? token,
+    List<dynamic>? cart,
   }) {
     return User(
       id: id ?? this.id,
@@ -71,6 +80,7 @@ class User {
       address: address ?? this.address,
       role: role ?? this.role,
       token: token ?? this.token,
+      cart: cart ?? this.cart,
     );
   }
 
@@ -84,7 +94,8 @@ class User {
         other.password == password &&
         other.address == address &&
         other.role == role &&
-        other.token == token;
+        other.token == token &&
+        listEquals(other.cart, cart);
   }
 
   @override
@@ -95,6 +106,7 @@ class User {
         password.hashCode ^
         address.hashCode ^
         role.hashCode ^
-        token.hashCode;
+        token.hashCode ^
+        cart.hashCode;
   }
 }

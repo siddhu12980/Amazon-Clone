@@ -44,4 +44,40 @@ class HomeServices {
     }
     return productList;
   }
+
+  Future<Product> fetchDealOfDay({required BuildContext context}) async {
+    Product product = Product(
+        name: "",
+        description: "",
+        quantity: 1,
+        images: [],
+        catogery: "",
+        price: 1);
+
+    try {
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+      http.Response res = await http.get(
+        Uri.parse("$uri/api/deal"),
+        headers: <String, String>{
+          "Access-Control-Allow-Origin": "*",
+          'Content-type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+
+      print(res.body);
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSucess: () {
+            var data = res.body;
+            product = Product.fromJson(data);
+          });
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
+    return product;
+  }
 }

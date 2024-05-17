@@ -1,7 +1,7 @@
 const expxress = require("express");
 const mongoose = require("mongoose");
 
-const Product = require("../../models/product");
+const { Product } = require("../../models/product");
 
 const adminAddProduct = expxress.Router();
 

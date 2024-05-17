@@ -11,37 +11,37 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class ProductDetailsServices {
-  // void addToCart({
-  //   required BuildContext context,
-  //   required Product product,
-  // }) async {
-  //   final userProvider = Provider.of<UserProvider>(context, listen: false);
+  void addToCart({
+    required BuildContext context,
+    required Product product,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-  //   try {
-  //     http.Response res = await http.post(
-  //       Uri.parse('$uri/api/add-to-cart'),
-  //       headers: {
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //         'x-auth-token': userProvider.user.token,
-  //       },
-  //       body: jsonEncode({
-  //         'id': product.id!,
-  //       }),
-  //     );
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/user/api/cart'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'p_id': product.id!,
+        }),
+      );
 
-  //     httpErrorHandle(
-  //       response: res,
-  //       context: context,
-  //       onSucess: () {
-  //         User user =
-  //             userProvider.user.copyWith(cart: jsonDecode(res.body)['cart']);
-  //         userProvider.setuser(user);
-  //       },
-  //     );
-  //   } catch (e) {
-  //     ShowSnackbar(context, e.toString());
-  //   }
-  // }
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSucess: () {
+          User user =
+              userProvider.user.copyWith(cart: jsonDecode(res.body)['cart']);
+          userProvider.setUserFromModel(user);
+        },
+      );
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
+  }
 
   void rateProduct({
     required BuildContext context,
