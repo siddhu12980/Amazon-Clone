@@ -1,4 +1,5 @@
 import 'package:ec/constants/global_variable.dart';
+import 'package:ec/feature/address/screen/address_screen.dart';
 import 'package:ec/feature/auth/widgets/common/custom_button.dart';
 import 'package:ec/feature/cart/widgets/Cart_product.dart';
 import 'package:ec/feature/cart/widgets/cart_widgets.dart';
@@ -20,13 +21,13 @@ class _CartScreenState extends State<CartScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
-  // void navigateToAddress(int sum) {
-  //   Navigator.pushNamed(
-  //     context,
-  //     AddressScreen.routeName,
-  //     arguments: sum.toString(),
-  //   );
-  // }
+  void navigateToAddress(int sum) {
+    Navigator.pushNamed(
+      context,
+      AddressScreen.routeName,
+      arguments: sum.toString(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

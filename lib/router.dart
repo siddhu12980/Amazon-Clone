@@ -1,3 +1,4 @@
+import 'package:ec/feature/address/screen/address_screen.dart';
 import 'package:ec/feature/admin/screen/add_product_screen.dart';
 import 'package:ec/feature/auth/screen/auth_Screen.dart';
 import 'package:ec/feature/auth/widgets/bottom_bar.dart';
@@ -59,6 +60,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
             searchQuery: searchquery,
           ),
         );
+      }
+    case AddressScreen.routeName:
+      {
+        return MaterialPageRoute(
+            settings: routeSettings, builder: (_) => const AddressScreen());
       }
     case ProductDetailScreen.routeName:
       {
