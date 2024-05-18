@@ -1,6 +1,8 @@
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/feature/auth/widgets/common/custom_button.dart';
-import 'package:ec/feature/home/widgets/address_box.dart';
+import 'package:ec/feature/cart/widgets/Cart_product.dart';
+import 'package:ec/feature/cart/widgets/cart_widgets.dart';
+
 import 'package:ec/feature/search/screen/search_screen.dart';
 import 'package:ec/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -110,8 +112,8 @@ class _CartScreenState extends State<CartScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AddressBox(),
-            const CartSubtotal(),
+            // const AddressBox(),
+            const CartTotal(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(

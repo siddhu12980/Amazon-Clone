@@ -1,5 +1,6 @@
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/feature/account/screen/account_screen.dart';
+import 'package:ec/feature/cart/screens/cart_screen.dart';
 import 'package:ec/feature/home/screens/home_screen.dart';
 import 'package:ec/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeScreen(),
     const AccountScreen(),
-    const Center(
-      child: Text("Cart Page"),
-    ),
+    const CartScreen()
   ];
 
   @override

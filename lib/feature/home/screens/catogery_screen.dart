@@ -1,5 +1,4 @@
 import 'package:ec/constants/global_variable.dart';
-import 'package:ec/feature/account/widgets/single_product_widget.dart';
 import 'package:ec/feature/home/services/home_services.dart';
 import 'package:ec/models/product_model.dart';
 import 'package:ec/product_details/screen/product_details_screen.dart';
@@ -48,6 +47,7 @@ class _CatogeryScreenState extends State<CatogeryScreen> {
             ),
           ),
         ),
+        // ignore: unnecessary_null_comparison
         body: prodlist == null
             ? const Center(
                 child: CircularProgressIndicator(),

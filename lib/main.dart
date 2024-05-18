@@ -1,5 +1,4 @@
 import 'package:ec/constants/global_variable.dart';
-import 'package:ec/feature/account/screen/account_screen.dart';
 import 'package:ec/feature/admin/screen/admin_screen.dart';
 import 'package:ec/feature/auth/screen/auth_Screen.dart';
 import 'package:ec/feature/auth/services/auth_services.dart';
