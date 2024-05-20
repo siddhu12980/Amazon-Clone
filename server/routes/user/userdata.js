@@ -84,6 +84,37 @@ userDataRouter.delete("/api/cart", async (req, res) => {
   res.json(user);
 });
 
+userDataRouter.post("/api/address", async (req, res) => {
+  const add = req.body.address;
+
+  const user = await User.findById(req.user);
+
+  if (!user) {
+    res.status(401).json({
+      msg: "User Not Found",
+    });
+  }
+
+  user.address = add;
+
+  await user.save();
+  res.json(user);
+});
+
+userDataRouter.post("/api/order", async (req, res) => {
+  const {cart,total,add} = req.body;
+
+  const user = await User.findById(req.user);
+
+  if (!user) {
+    res.status(401).json({
+      msg: "User Not Found",
+    });
+  }
+
+
+  
+});
 module.exports = {
   userDataRouter,
 };

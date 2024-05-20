@@ -46,8 +46,7 @@ dependencies:
   cloudinary_url_gen: ^1.0.0
   cloudinary_public: ^0.23.1
   flutter_rating_bar: ^4.0.1
-  pay_android: ^2.0.0
-  pay: ^2.0.0
+  pay: ^1.0.10
   
 
 dev_dependencies:
@@ -81,6 +80,7 @@ flutter:
     - assets/images/essentials.jpeg
     - assets/images/fashion.jpeg
     - assets/images/mobiles.jpeg
+    - assets/gpay.json
 
 
     
