@@ -22,11 +22,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void navigateToAddress(int sum) {
-    Navigator.pushNamed(
-      context,
-      AddressScreen.routeName,
-      arguments: sum.toString(),
-    );
+    Navigator.pushNamed(context, AddressScreen.routeName);
   }
 
   @override
@@ -119,9 +115,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
                 text: 'Proceed to Buy (${user.cart.length} items)',
-                // onTap: () => navigateToAddress(sum),
-                onTap: () => {},
-                // color: Colors.yellow[600],
+                onTap: () => navigateToAddress(sum),
               ),
             ),
             const SizedBox(height: 15),
