@@ -1,6 +1,7 @@
 const expxress = require("express");
 const User = require("../../models/user");
 const { Product } = require("../../models/product");
+const { Order } = require("../../models/order");
 require("mongoose");
 
 const userDataRouter = expxress.Router();
@@ -102,18 +103,58 @@ userDataRouter.post("/api/address", async (req, res) => {
 });
 
 userDataRouter.post("/api/order", async (req, res) => {
-  const {cart,total,add} = req.body;
+  try {
+    const { cart, total, add } = req.body;
+    let orders = [];
+    const user = await User.findById(req.user);
 
-  const user = await User.findById(req.user);
+    if (!user) {
+      res.status(401).json({
+        msg: "User Not Found",
+      });
+    }
 
-  if (!user) {
-    res.status(401).json({
-      msg: "User Not Found",
-    });
+    for (let i = 0; i < cart.length; i++) {
+      let product = await Product.findById(cart[i].product._id);
+
+      if (product.quantity == 0) {
+        res.status(400).json({
+          msg: `${product.name} is Out Of Stock`,
+        });
+      } else if (product.quantity > cart[i].quantity) {
+        product.quantity -= cart[i].quantity;
+        orders.push({
+          product: product,
+          quantity: cart[i].quantity,
+        });
+
+        await product.save();
+      } else {
+        res.status(400).json({
+          msg: `${product.name} is Not Enough`,
+        });
+      }
+    }
+
+    let usr = await user.findById(req.user);
+
+    usr.cart = [];
+
+    await usr.save();
+
+    let order= new Order({
+      products:orders,
+      total,
+      add,
+      userid:req.user,
+      orderat:new Date().getTime()
+    })
+
+    await order.save();
+
+  } catch (e) {
+    res.status(501).json({ msg: e.message });
   }
-
-
-  
 });
 module.exports = {
   userDataRouter,

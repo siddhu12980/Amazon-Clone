@@ -1,5 +1,7 @@
 // import 'package:cloudinary_url_gen/transformation/resize/pad.dart';
 import 'package:ec/constants/global_variable.dart';
+import 'package:ec/feature/address/services/address_services.dart';
+import 'package:ec/feature/admin/services/admin_services.dart';
 import 'package:ec/feature/auth/widgets/common/custom_button.dart';
 import 'package:ec/feature/auth/widgets/common/custom_textfield.dart';
 import 'package:ec/provider/user_provider.dart';
@@ -66,6 +68,9 @@ const _paymentItems = [
 ];
 
 class _AddressScreenState extends State<AddressScreen> {
+  
+  String finalAddress="";
+  final AddressServices addressServices= AddressServices();
   final TextEditingController _houseController = TextEditingController();
   final TextEditingController _streetController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
@@ -85,8 +90,16 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     void onGooglePayResult(paymentResult) {
-      // Send the resulting Google Pay token to your server / PSP
+      // Send the resulting Google Pay token to your server 
+      if(Provider.of<UserProvider>(context).user.address.isEmpty){
+        addressServices.saveUserAddress(context: context, address: address)
+      }
       print(paymentResult);
+    }
+
+    void pressedPay(){
+      bool isform=_houseController.text.isNotEmpty; //|| citycontoller ..... -< easied for testing
+
     }
 
     var address = context.watch<UserProvider>().user.address;
