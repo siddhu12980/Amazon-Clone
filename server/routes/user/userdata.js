@@ -1,8 +1,8 @@
+require("mongoose");
 const expxress = require("express");
 const User = require("../../models/user");
 const { Product } = require("../../models/product");
 const { Order } = require("../../models/order");
-require("mongoose");
 
 const userDataRouter = expxress.Router();
 
@@ -142,18 +142,32 @@ userDataRouter.post("/api/order", async (req, res) => {
 
     await usr.save();
 
-    let order= new Order({
-      products:orders,
+    let order = new Order({
+      products: orders,
       total,
       add,
-      userid:req.user,
-      orderat:new Date().getTime()
-    })
+      userid: req.user,
+      orderat: new Date().getTime(),
+    });
 
     await order.save();
-
   } catch (e) {
     res.status(501).json({ msg: e.message });
+  }
+});
+
+userDataRouter.get("/api/orders", async (req, res) => {
+  try {
+    const order = Order.find({
+      userid: req.user,
+    });
+
+
+    res.json(order);
+  } catch (e) {
+    res.json({
+      msg: e.message,
+    });
   }
 });
 module.exports = {

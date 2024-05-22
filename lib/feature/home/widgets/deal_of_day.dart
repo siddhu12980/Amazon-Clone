@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:typed_data';
-
 import 'package:ec/feature/home/services/home_services.dart';
 import 'package:ec/models/product_model.dart';
 import 'package:ec/product_details/screen/product_details_screen.dart';

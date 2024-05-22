@@ -1,5 +1,5 @@
-// import 'package:cloudinary_url_gen/transformation/resize/pad.dart';
 import 'package:ec/constants/global_variable.dart';
+import 'package:ec/constants/utils.dart';
 import 'package:ec/feature/address/services/address_services.dart';
 import 'package:ec/feature/auth/widgets/common/custom_button.dart';
 import 'package:ec/feature/auth/widgets/common/custom_textfield.dart';
@@ -58,16 +58,7 @@ const String defaultGooglePay = '''{
   }
 }''';
 
-const _paymentItems = [
-  PaymentItem(
-    label: 'Total',
-    amount: '299',
-    status: PaymentItemStatus.final_price,
-  )
-];
-
 class _AddressScreenState extends State<AddressScreen> {
-  String finalAddress = "";
   final AddressServices addressServices = AddressServices();
   final TextEditingController _houseController = TextEditingController();
   final TextEditingController _streetController = TextEditingController();
@@ -75,6 +66,22 @@ class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController _cityController = TextEditingController();
 
   final _signupFormKey = GlobalKey<FormState>();
+
+  String finalAddress = "";
+
+  List<PaymentItem> paymentItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    paymentItems.add(
+      PaymentItem(
+        amount: widget.totalAmount,
+        label: 'Total Amount',
+        status: PaymentItemStatus.final_price,
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -85,37 +92,50 @@ class _AddressScreenState extends State<AddressScreen> {
     _cityController.dispose();
   }
 
+  void onGooglePayResult(paymentResult) {
+    print(paymentResult);
+    // Send the resulting Google Pay token to your server
+    print(Provider.of<UserProvider>(context, listen: false).user.address);
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(context: context, address: finalAddress);
+    }
+
+    addressServices.placeOrder(
+        address: finalAddress,
+        context: context,
+        totalSum: double.parse(widget.totalAmount));
+
+    print(paymentResult);
+  }
+
+  void pressedPay(String formAddress) async {
+    print("clicked");
+    bool isform = _houseController.text.isNotEmpty;
+    //|| citycontoller ..... -< easied for testing
+    if (isform) {
+      if (_signupFormKey.currentState!.validate()) {
+        finalAddress =
+            '${_houseController.text}, ${_streetController.text}, ${_cityController.text} - ${_pinController.text}';
+      } else {
+        throw Exception('Please enter all the values!');
+      }
+    } else if (formAddress.isNotEmpty) {
+      finalAddress = formAddress;
+    } else {
+      ShowSnackbar(context, 'ERROR');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    void onGooglePayResult(paymentResult) {
-      print(paymentResult);
-      // Send the resulting Google Pay token to your server
-      print(Provider.of<UserProvider>(context).user.address);
-      if (Provider.of<UserProvider>(context).user.address.isEmpty) {
-        addressServices.saveUserAddress(
-            context: context, address: finalAddress);
-      }
-      print(paymentResult);
-    }
-
-    void pressedPay() async {
-      print("clicked");
-      bool isform = _houseController.text.isNotEmpty;
-      //|| citycontoller ..... -< easied for testing
-      if (isform) {
-        finalAddress =
-            "$_houseController, $_streetController , $_pinController, $_cityController";
-
-        addressServices.saveUserAddress(
-            context: context, address: finalAddress);
-      }
-    }
-
     var address = context.watch<UserProvider>().user.address;
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(63),
+        preferredSize: Size.fromHeight(63),
         child: AppBar(
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -186,20 +206,13 @@ class _AddressScreenState extends State<AddressScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      CustomButton(
-                          text: "Signup",
-                          onTap: () {
-                            if (_signupFormKey.currentState!.validate()) {
-                              print("do");
-                            }
-                          }),
                       GooglePayButton(
-                        onPressed: () => pressedPay,
+                        onPressed: () => pressedPay(address),
                         width: double.infinity,
                         paymentConfiguration:
                             PaymentConfiguration.fromJsonString(
                                 defaultGooglePay),
-                        paymentItems: _paymentItems,
+                        paymentItems: paymentItems,
                         type: GooglePayButtonType.buy,
                         margin: const EdgeInsets.only(top: 15.0),
                         onPaymentResult: onGooglePayResult,
