@@ -88,7 +88,9 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     void onGooglePayResult(paymentResult) {
+      print(paymentResult);
       // Send the resulting Google Pay token to your server
+      print(Provider.of<UserProvider>(context).user.address);
       if (Provider.of<UserProvider>(context).user.address.isEmpty) {
         addressServices.saveUserAddress(
             context: context, address: finalAddress);
@@ -96,12 +98,16 @@ class _AddressScreenState extends State<AddressScreen> {
       print(paymentResult);
     }
 
-    void pressedPay() {
+    void pressedPay() async {
+      print("clicked");
       bool isform = _houseController.text.isNotEmpty;
       //|| citycontoller ..... -< easied for testing
       if (isform) {
         finalAddress =
             "$_houseController, $_streetController , $_pinController, $_cityController";
+
+        addressServices.saveUserAddress(
+            context: context, address: finalAddress);
       }
     }
 
@@ -188,9 +194,7 @@ class _AddressScreenState extends State<AddressScreen> {
                             }
                           }),
                       GooglePayButton(
-                        onPressed: () {
-                          pressedPay;
-                        },
+                        onPressed: () => pressedPay,
                         width: double.infinity,
                         paymentConfiguration:
                             PaymentConfiguration.fromJsonString(
