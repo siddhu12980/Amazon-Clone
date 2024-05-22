@@ -22,11 +22,11 @@ class _CartTotalState extends State<CartTotal> {
       child: Row(
         children: [
           Text(
-            "Sub Total ",
+            "  Sub Total : ",
             style: TextStyle(fontSize: 20),
           ),
           Text(
-            '\$ $sum.toString()',
+            '\$ $sum',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
