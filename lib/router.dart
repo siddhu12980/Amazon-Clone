@@ -5,7 +5,9 @@ import 'package:ec/feature/auth/widgets/bottom_bar.dart';
 import 'package:ec/feature/home/screens/catogery_screen.dart';
 import 'package:ec/feature/home/screens/home_screen.dart';
 import 'package:ec/feature/search/screen/search_screen.dart';
+import 'package:ec/models/order.dart';
 import 'package:ec/models/product_model.dart';
+import 'package:ec/orders_details/screens/order_detail_screen.dart';
 import 'package:ec/product_details/screen/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -79,6 +81,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
             product: product,
           ),
         );
+      }
+    case OrderDetailScreen.routeName:
+      {
+        Order order = routeSettings.arguments as Order;
+
+        return MaterialPageRoute(
+            settings: routeSettings,
+            builder: (_) => OrderDetailScreen(order: order));
       }
     default:
       {

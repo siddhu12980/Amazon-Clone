@@ -158,10 +158,16 @@ userDataRouter.post("/api/order", async (req, res) => {
 
 userDataRouter.get("/api/orders", async (req, res) => {
   try {
-    const order = Order.find({
+    const order = await Order.find({
       userid: req.user,
     });
 
+    if (order.length == 0) {
+      return res.json({
+        msg: "NO orders",
+      });
+    }
+  
 
     res.json(order);
   } catch (e) {
