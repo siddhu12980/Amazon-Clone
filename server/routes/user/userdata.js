@@ -99,12 +99,18 @@ userDataRouter.post("/api/address", async (req, res) => {
   user.address = add;
 
   await user.save();
+  console.log(user);
   res.json(user);
 });
 
-userDataRouter.post("/api/order", async (req, res) => {
+userDataRouter.post("/api/orders", async (req, res) => {
   try {
-    const { cart, total, add } = req.body;
+    const cart = req.body.cart;
+    const add = req.body.address;
+    const total = req.body.totalPrice;
+
+    console.log(cart,add,total);
+
     let orders = [];
     const user = await User.findById(req.user);
 
@@ -113,9 +119,17 @@ userDataRouter.post("/api/order", async (req, res) => {
         msg: "User Not Found",
       });
     }
+    console.log("user check")
 
     for (let i = 0; i < cart.length; i++) {
       let product = await Product.findById(cart[i].product._id);
+    
+      if (!product) {
+        res.status(400).json({
+          msg: `${product.name} is Not Found`,
+        });
+
+      }
 
       if (product.quantity == 0) {
         res.status(400).json({
@@ -123,12 +137,14 @@ userDataRouter.post("/api/order", async (req, res) => {
         });
       } else if (product.quantity > cart[i].quantity) {
         product.quantity -= cart[i].quantity;
+        
         orders.push({
           product: product,
           quantity: cart[i].quantity,
         });
 
         await product.save();
+
       } else {
         res.status(400).json({
           msg: `${product.name} is Not Enough`,
@@ -136,11 +152,16 @@ userDataRouter.post("/api/order", async (req, res) => {
       }
     }
 
+    console.log("for check")
+
     let usr = await user.findById(req.user);
 
     usr.cart = [];
+    console.log("user cart")
 
     await usr.save();
+
+    console.log("user saved")
 
     let order = new Order({
       products: orders,
@@ -151,6 +172,7 @@ userDataRouter.post("/api/order", async (req, res) => {
     });
 
     await order.save();
+    console.log("Save")
   } catch (e) {
     res.status(501).json({ msg: e.message });
   }
@@ -161,13 +183,6 @@ userDataRouter.get("/api/orders", async (req, res) => {
     const order = await Order.find({
       userid: req.user,
     });
-
-    if (order.length == 0) {
-      return res.json({
-        msg: "NO orders",
-      });
-    }
-  
 
     res.json(order);
   } catch (e) {

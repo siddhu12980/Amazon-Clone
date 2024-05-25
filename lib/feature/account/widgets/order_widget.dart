@@ -1,5 +1,4 @@
 import 'package:ec/constants/global_variable.dart';
-import 'package:ec/feature/account/screen/account_screen.dart';
 import 'package:ec/feature/account/services/account_services.dart';
 import 'package:ec/feature/account/widgets/single_product_widget.dart';
 import 'package:ec/models/order.dart';
@@ -19,6 +18,10 @@ class _OrdersWidgetState extends State<OrdersWidget> {
 
   void fetchOrder() async {
     orders = await accountServices.fetchMyOrders(context: context);
+    print(
+      "orders : $orders",
+    );
+    setState(() {});
   }
 
   @override

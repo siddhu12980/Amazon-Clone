@@ -40,6 +40,7 @@ class HomeServices {
             }
           });
     } catch (e) {
+      print(e);
       ShowSnackbar(context, e.toString());
     }
     return productList;

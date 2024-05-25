@@ -19,7 +19,7 @@ class AddressServices {
 
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/api/address'),
+        Uri.parse('$uri/user/api/address'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -53,7 +53,7 @@ class AddressServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      http.Response res = await http.post(Uri.parse('$uri/api/order'),
+      http.Response res = await http.post(Uri.parse('$uri/user/api/orders'),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'x-auth-token': userProvider.user.token,

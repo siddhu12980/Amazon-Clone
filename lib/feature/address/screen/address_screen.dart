@@ -1,14 +1,11 @@
 import 'package:ec/constants/global_variable.dart';
 import 'package:ec/constants/utils.dart';
 import 'package:ec/feature/address/services/address_services.dart';
-import 'package:ec/feature/auth/widgets/common/custom_button.dart';
 import 'package:ec/feature/auth/widgets/common/custom_textfield.dart';
 import 'package:ec/provider/user_provider.dart';
-// import 'package:ec/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = "Address-screen";
@@ -107,8 +104,6 @@ class _AddressScreenState extends State<AddressScreen> {
         address: finalAddress,
         context: context,
         totalSum: double.parse(widget.totalAmount));
-
-    print(paymentResult);
   }
 
   void pressedPay(String formAddress) async {

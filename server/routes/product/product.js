@@ -35,7 +35,9 @@ productRoute.get("/products", async (req, res) => {
       {
         __v: 0,
       }
+      
     );
+    console.log(product);
 
     res.status(200).json({
       product,

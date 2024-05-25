@@ -148,10 +148,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Order Date:${
-                      DateTime.fromMillisecondsSinceEpoch(
-                          widget.order.orderedAt),
-                    }'),
+                    Text(
+                        'Order Date:${DateTime.fromMillisecondsSinceEpoch(widget.order.orderedAt)}'),
                     Text('Order ID:          ${widget.order.id}'),
                     Text('Order Total:      \$${widget.order.totalPrice}'),
                   ],
