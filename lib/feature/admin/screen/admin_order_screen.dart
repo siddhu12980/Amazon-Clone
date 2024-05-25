@@ -1,4 +1,5 @@
 import 'package:ec/feature/admin/services/admin_services.dart';
+import 'package:ec/feature/auth/widgets/common/singleProduct.dart';
 import 'package:ec/models/order.dart';
 import 'package:ec/orders_details/screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 
   void fetchOrders() async {
-    orders = await adminServices.fetchAllOrders(context);
+    orders = await adminServices.fetchAllOrders(context: context);
     setState(() {});
   }
 
