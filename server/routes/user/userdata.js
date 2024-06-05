@@ -109,7 +109,7 @@ userDataRouter.post("/api/orders", async (req, res) => {
     const add = req.body.address;
     const total = req.body.totalPrice;
 
-    console.log(cart,add,total);
+    console.log(cart, add, total);
 
     let orders = [];
     const user = await User.findById(req.user);
@@ -119,16 +119,15 @@ userDataRouter.post("/api/orders", async (req, res) => {
         msg: "User Not Found",
       });
     }
-    console.log("user check")
+    console.log("user check");
 
     for (let i = 0; i < cart.length; i++) {
       let product = await Product.findById(cart[i].product._id);
-    
+
       if (!product) {
         res.status(400).json({
           msg: `${product.name} is Not Found`,
         });
-
       }
 
       if (product.quantity == 0) {
@@ -137,14 +136,13 @@ userDataRouter.post("/api/orders", async (req, res) => {
         });
       } else if (product.quantity > cart[i].quantity) {
         product.quantity -= cart[i].quantity;
-        
+
         orders.push({
           product: product,
           quantity: cart[i].quantity,
         });
 
         await product.save();
-
       } else {
         res.status(400).json({
           msg: `${product.name} is Not Enough`,
@@ -152,16 +150,16 @@ userDataRouter.post("/api/orders", async (req, res) => {
       }
     }
 
-    console.log("for check")
-
-    let usr = await user.findById(req.user);
+    console.log("for check");
+    let usr = await User.findById(req.user);
+    console.log("use ");
 
     usr.cart = [];
-    console.log("user cart")
+    console.log("user cart");
 
     await usr.save();
 
-    console.log("user saved")
+    console.log("user saved");
 
     let order = new Order({
       products: orders,
@@ -172,7 +170,7 @@ userDataRouter.post("/api/orders", async (req, res) => {
     });
 
     await order.save();
-    console.log("Save")
+    console.log("Save");
   } catch (e) {
     res.status(501).json({ msg: e.message });
   }
@@ -180,11 +178,17 @@ userDataRouter.post("/api/orders", async (req, res) => {
 
 userDataRouter.get("/api/orders", async (req, res) => {
   try {
-    const order = await Order.find({
+    console.log("inside");
+    console.log(req.user);
+    const orders = await Order.find({
       userid: req.user,
     });
+    console.log(orders);
 
-    res.json(order);
+    const new_order = [...orders];
+    console.log(new_order);
+
+    res.json(new_order);
   } catch (e) {
     res.json({
       msg: e.message,

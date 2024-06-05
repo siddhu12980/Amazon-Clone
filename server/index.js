@@ -17,6 +17,9 @@ const { adminMiddelWare } = require("./middelware/admin/admin_middelware");
 const { productRoute } = require("./routes/product/product");
 const { rateProductRoute } = require("./routes/product/rate");
 const { dealRouter } = require("./routes/product/deal");
+const {
+  adminProductServices,
+} = require("./routes/admin/adminService/order_details");
 
 // app.use(
 //   cors({
@@ -27,6 +30,7 @@ const { dealRouter } = require("./routes/product/deal");
 // app.use(cors);r
 app.use("/admin", adminAuthRouter);
 app.use("/admin", adminAddProduct);
+app.use("/admin", userMiddelWare, adminProductServices);
 app.use("/user", userAuthRouter);
 app.use("/user", userMiddelWare, userDataRouter);
 app.use("/api", productRoute, dealRouter);

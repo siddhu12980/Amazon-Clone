@@ -14,6 +14,7 @@ async function adminMiddelWare(req, res, next) {
       });
 
     const decode = jwt.verify(token, jwt_password);
+    console.log(decode);
     if (!decode)
       return res.json({
         msg: " Invalid Auth Token",
@@ -33,7 +34,7 @@ async function adminMiddelWare(req, res, next) {
       next();
     } else {
       return res.status(401).json({
-        msg: "You are Not Admin",
+        msg: "You are Not Admin ..",
       });
     }
   } catch (e) {

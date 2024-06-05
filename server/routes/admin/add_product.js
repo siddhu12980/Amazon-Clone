@@ -72,6 +72,8 @@ adminAddProduct.delete("/product/:productid", async (req, res) => {
   }
 });
 
+adminAddProduct.post("/orders-status", async (req, res) => {});
+
 module.exports = {
   adminAddProduct,
 };

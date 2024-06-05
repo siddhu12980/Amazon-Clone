@@ -33,19 +33,19 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     currentStep = widget.order.status;
   }
 
-  // !!! ONLY FOR ADMIN!!!
-  // void changeOrderStatus(int status) {
-  //   adminServices.changeOrderStatus(
-  //     context: context,
-  //     status: status + 1,
-  //     order: widget.order,
-  //     onSuccess: () {
-  //       setState(() {
-  //         currentStep += 1;
-  //       });
-  //     },
-  //   );
-  // }
+  //admin
+  void changeOrderStatus(int status) {
+    adminServices.changeOrderStatus(
+      context: context,
+      status: status + 1,
+      order: widget.order,
+      onSuccess: () {
+        setState(() {
+          currentStep += 1;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +195,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  'Qty: ${widget.order.quantity[i]}',
+                                  'Qty: ${widget.order.products[0].quantity} ll',
                                 ),
                               ],
                             ),
@@ -225,10 +225,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     if (user.role == 'admin') {
                       return CustomButton(
                         text: 'Done',
-                        // onTap: () => changeOrderStatus(details.currentStep),
-                        onTap: () {
-                          print("Clicked");
-                        },
+                        onTap: () => changeOrderStatus(details.currentStep),
                       );
                     }
                     return const SizedBox();

@@ -1,5 +1,7 @@
 import 'package:ec/constants/global_variable.dart';
+import 'package:ec/feature/admin/screen/admin_order_screen.dart';
 import 'package:ec/feature/admin/screen/products_screen.dart';
+import 'package:ec/orders_details/screens/order_detail_screen.dart';
 import 'package:ec/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,21 +22,12 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     List<Widget> pages = [
       const AdminProductScreen(),
-      // const Scaffold(
-      //   body: Center(
-      //     child: Text("1"),
-      //   ),
-      // ),
       const Scaffold(
         body: Center(
           child: Text("2"),
         ),
       ),
-      const Scaffold(
-        body: Center(
-          child: Text("3"),
-        ),
-      )
+      const OrdersScreen()
     ];
 
     void updatepage(page) {
