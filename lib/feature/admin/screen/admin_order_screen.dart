@@ -1,3 +1,4 @@
+import 'package:cloudinary_url_gen/config/url_config.dart';
 import 'package:ec/feature/admin/services/admin_services.dart';
 import 'package:ec/feature/auth/widgets/common/singleProduct.dart';
 import 'package:ec/models/order.dart';
@@ -23,6 +24,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   void fetchOrders() async {
     orders = await adminServices.fetchAllOrders(context);
+
     setState(() {});
   }
 

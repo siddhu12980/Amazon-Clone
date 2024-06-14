@@ -151,7 +151,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     Text(
                         'Order Date:${DateTime.fromMillisecondsSinceEpoch(widget.order.orderedAt)}'),
                     Text('Order ID:          ${widget.order.id}'),
-                    Text('Order Total:      \$${widget.order.totalPrice}'),
+                    Text(
+                        'Order Total:      \$ ${widget.order.totalPrice.toInt()}'),
                   ],
                 ),
               ),
@@ -195,7 +196,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  'Qty: ${widget.order.products[0].quantity} ll',
+                                  'Qty: ${widget.order.products[0].quantity} ',
+                                ),
+                                Text(
+                                  'Price: ${widget.order.products[0].price} ',
                                 ),
                               ],
                             ),
@@ -222,7 +226,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {
-                    if (user.role == 'admin') {
+                    if (user.role == 'admin' && details.currentStep < 3) {
                       return CustomButton(
                         text: 'Done',
                         onTap: () => changeOrderStatus(details.currentStep),

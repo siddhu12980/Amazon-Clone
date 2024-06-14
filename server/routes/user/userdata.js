@@ -163,7 +163,7 @@ userDataRouter.post("/api/orders", async (req, res) => {
 
     let order = new Order({
       products: orders,
-      total,
+      totalPrice: total,
       add,
       userid: req.user,
       orderat: new Date().getTime(),

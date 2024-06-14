@@ -215,6 +215,8 @@ class AdminServices {
         onSucess: () {
           var response = jsonDecode(res.body);
           totalEarning = response['totalEarnings'];
+          print("====================");
+          print(response.toString());
           sales = [
             Sales('Mobiles', response['mobileEarnings']),
             Sales('Essentials', response['essentialEarnings']),

@@ -1,3 +1,4 @@
+import 'package:ec/feature/account/services/account_services.dart';
 import 'package:ec/feature/account/widgets/top_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class TopSection extends StatefulWidget {
 }
 
 class _TopSectionState extends State<TopSection> {
+  AccountServices accountServices = AccountServices();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +40,7 @@ class _TopSectionState extends State<TopSection> {
           children: [
             TopWidget(
               text: "Log Out",
-              ontap: () {},
+              ontap: () => accountServices.logOut(context),
             ),
             const SizedBox(
               height: 10,

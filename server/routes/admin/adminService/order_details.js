@@ -9,11 +9,7 @@ const adminProductServices = expxress.Router();
 
 adminProductServices.get("/orders", async (req, res) => {
   try {
-    console.log("inside");
-    console.log(req.user);
-
     const orders = await Order.find({});
-    console.log(orders);
 
     res.json(orders);
   } catch (e) {
@@ -47,7 +43,7 @@ adminProductServices.post("/status", async (req, res) => {
 async function fetchCategoryWiseProduct(category) {
   let earnings = 0;
   let categoryOrders = await Order.find({
-    "products.product.category": category,
+    "products.product.catogery": category,
   });
 
   for (let i = 0; i < categoryOrders.length; i++) {
@@ -86,6 +82,8 @@ adminProductServices.get("/analytics", async (req, res) => {
       booksEarnings,
       fashionEarnings,
     };
+
+    console.log(earnings);
 
     res.json(earnings);
   } catch (e) {

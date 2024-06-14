@@ -1,4 +1,5 @@
 import 'package:ec/feature/admin/model/sales.dart';
+import 'package:ec/feature/admin/screen/barchart.dart';
 import 'package:ec/feature/admin/services/admin_services.dart';
 import 'package:flutter/material.dart';
 
@@ -42,16 +43,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                height: 250,
-                child: CategoryProductsChart(seriesList: [
-                  charts.Series(
-                    id: 'Sales',
-                    data: earnings!,
-                    domainFn: (Sales sales, _) => sales.label,
-                    measureFn: (Sales sales, _) => sales.earning,
-                  ),
-                ]),
+              AspectRatio(
+                aspectRatio: 1.8,
+                child: BarCharts(
+                  saleData: earnings!,
+                ),
               )
             ],
           );
