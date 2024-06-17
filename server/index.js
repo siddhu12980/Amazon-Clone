@@ -1,4 +1,7 @@
+const dotenv = require("dotenv");
+dotenv.config();
 require("../server/db/db");
+
 const express = require("express");
 const app = express();
 
@@ -21,13 +24,6 @@ const {
   adminProductServices,
 } = require("./routes/admin/adminService/order_details");
 
-// app.use(
-//   cors({
-//     origin: "*",
-//   })
-// );
-
-// app.use(cors);r
 app.use("/admin", adminAuthRouter);
 app.use("/admin", adminAddProduct);
 app.use("/admin", userMiddelWare, adminProductServices);

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
+require("dotenv");
 // Connect to MongoDB
-mongoose.connect("mongodb+srv://juugi202316701:sidd12345@cluster0.q1uoufo.mongodb.net/");
+console.log(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL);
 // Define schemasz
-
-
-
