@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-require("dotenv");
-// Connect to MongoDB
-console.log(process.env.MONGO_URL);
-mongoose.connect(process.env.MONGO_URL);
-// Define schemasz
+try {
+  mongoose.connect(process.env.MONGO_URL);
+} catch (e) {
+  console.log(e.message);
+}
